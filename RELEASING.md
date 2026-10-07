@@ -156,6 +156,11 @@ copy somewhere durable, or rebuild it from the recipe above.
 It claims **9.0.97**, so if a normal release takes that number first, renumber the rollback
 above whatever is then live - the same version-inversion rule applies.
 
+> **9.0.97 is now taken** by the Shuffle batching release (ShuffleImport 9.0.13, ShuffleExport
+> 9.0.14 - the same task numbers the rollback uses). The prepared package above is a rollback to
+> 9.0.95 and can no longer be published as it is: renumber every task above its live version, and
+> the extension above the live extension, before using it.
+
 Running the gate against it fails exactly two assertions, both correct:
 
 - **ships no DotNetZip assembly** — 9.0.95 really did ship `DotNetZip.dll` in four tasks. That is
