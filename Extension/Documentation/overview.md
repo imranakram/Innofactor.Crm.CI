@@ -14,6 +14,8 @@ A blog series describing purpose and usage:
 
 **Public Preview** – [Announcing availability and some sample code / tutorial](https://jonasr.app/devops-preview/)
 
+**Shuffle guide** – [The easy way to move Dataverse data with Shuffle](https://biznamics.com/shuffle-guide/): defining, exporting and importing data, the new batching, and running Shuffle in pipelines
+
 
 
 ## Slides
