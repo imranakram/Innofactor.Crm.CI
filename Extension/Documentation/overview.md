@@ -4,7 +4,7 @@
 
 ## Articles
 
-A blog series describing purpose and usage:
+Articles describing purpose and usage:
 
 **Part I** – [Background and how our DevOps tools evolved before we knew about it](https://jonasr.app/devops-i/)
 
@@ -13,6 +13,8 @@ A blog series describing purpose and usage:
 **Part III** – [Demo of complete build and release definitions taking you from A to Z](https://jonasr.app/devops-iii/)
 
 **Public Preview** – [Announcing availability and some sample code / tutorial](https://jonasr.app/devops-preview/)
+
+**Shuffle guide** – [The easy way to move Dataverse data with Shuffle](https://biznamics.com/shuffle-guide/): defining, exporting and importing data, the new batching, and running Shuffle in pipelines
 
 
 
