@@ -4,7 +4,7 @@
 
 ## Articles
 
-A blog series describing purpose and usage:
+Articles describing purpose and usage:
 
 **Part I** – [Background and how our DevOps tools evolved before we knew about it](https://jonasr.app/devops-i/)
 
