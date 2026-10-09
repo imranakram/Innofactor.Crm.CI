@@ -160,6 +160,10 @@ above whatever is then live - the same version-inversion rule applies.
 > 9.0.14 - the same task numbers the rollback uses). The prepared package above is a rollback to
 > 9.0.95 and can no longer be published as it is: renumber every task above its live version, and
 > the extension above the live extension, before using it.
+>
+> **9.0.98** followed (ShuffleImport 9.0.14, ShuffleExport 9.0.15, and a new extension icon), so
+> the floor for a renumbered rollback is now ShuffleImport 9.0.15, ShuffleExport 9.0.16 and
+> extension 9.0.99.
 
 Running the gate against it fails exactly two assertions, both correct:
 
