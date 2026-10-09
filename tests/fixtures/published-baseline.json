@@ -1,6 +1,6 @@
 {
-  "publishedVersion": "9.0.96",
-  "source": "InnofactorSE.cinteros-devutils-ci-build-tasks-9.0.96.vsix",
+  "publishedVersion": "9.0.98",
+  "source": "InnofactorSE.cinteros-devutils-ci-build-tasks-9.0.98.vsix",
   "tasks": {
     "ApplyVersionToAssemblies": {
       "id": "4d6fe5ed-c8e8-4782-ac11-97e27b7a72c5",
@@ -16,11 +16,11 @@
     },
     "ShuffleExport": {
       "id": "c0da7e50-d3a6-417e-9c8b-11da841352fc",
-      "version": "9.0.13"
+      "version": "9.0.15"
     },
     "ShuffleImport": {
       "id": "a4334ae5-0d38-4dc9-b30d-881fd2988c56",
-      "version": "9.0.12"
+      "version": "9.0.14"
     },
     "UpdateAssembly": {
       "id": "87589590-e070-48ad-b709-a7758db9db8b",

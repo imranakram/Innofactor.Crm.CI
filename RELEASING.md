@@ -41,7 +41,8 @@ Rule 2 is what makes a naive rollback fail silently — see below.
 3. **Package.**
 
    ```powershell
-   .\Extension\pack.ps1        # answer N to "Update revision?" if you set the version by hand
+   .\Extension\pack.ps1        # answer N to "Update revision?" if you set the version by hand,
+                               # and N to "Publish extension?" - publish only after steps 4 and 5
    ```
 
 4. **Gate it.** Must be green.
@@ -55,18 +56,28 @@ Rule 2 is what makes a naive rollback fail silently — see below.
    normally lands on the pwsh 7 module path, so 5.1 sees only the inbox Pester 3.4.0 and
    cannot run the Pester suite. `Test-Connection.ps1` needs no test framework.
 
+   Set the connection string with a hidden prompt. Typing `$env:CRM_ONLINE_CONNSTR = '...'`
+   directly works too, but saves the secret in PowerShell's history file.
+
    ```powershell
    # online - this is the run that exercises the ADAL 3.19.8 load path
-   $env:CRM_ONLINE_CONNSTR = 'AuthType=ClientSecret;Url=https://...;ClientId=...;ClientSecret=...'
+   # paste e.g. AuthType=ClientSecret;Url=https://...;ClientId=...;ClientSecret=...
+   $env:CRM_ONLINE_CONNSTR = [Runtime.InteropServices.Marshal]::PtrToStringBSTR([Runtime.InteropServices.Marshal]::SecureStringToBSTR((Read-Host 'Online connection string' -AsSecureString)))
    .\tests\Test-Connection.ps1
 
    # on-prem - AD/IFD uses WS-Trust and never loads ADAL, which the script expects
-   $env:CRM_ONPREM_CONNSTR = 'AuthType=AD;Url=http://crmserver/org;Domain=...;Username=...;Password=...'
+   # paste e.g. AuthType=AD;Url=http://crmserver/org;Domain=...;Username=...;Password=...
+   $env:CRM_ONPREM_CONNSTR = [Runtime.InteropServices.Marshal]::PtrToStringBSTR([Runtime.InteropServices.Marshal]::SecureStringToBSTR((Read-Host 'On-prem connection string' -AsSecureString)))
    .\tests\Test-Connection.ps1 -Target OnPrem
    ```
 
    Both must pass. Set the connection strings in that window rather than passing them as
    arguments, so they stay out of shell history and process arguments.
+
+   **Close the window afterwards.** That clears the connection strings, and it releases the
+   task DLLs `Test-Connection.ps1` loaded from `Extension\Implementation\WhoAmI\ps_modules`.
+   .NET Framework cannot unload them, and while they are loaded `pack.ps1` fails with
+   "Access to the path ... is denied".
 
 6. **Publish the exact artifact you just tested** — via the
    [publisher portal](https://marketplace.visualstudio.com/manage/publishers/innofactorse)
@@ -160,6 +171,10 @@ above whatever is then live - the same version-inversion rule applies.
 > 9.0.14 - the same task numbers the rollback uses). The prepared package above is a rollback to
 > 9.0.95 and can no longer be published as it is: renumber every task above its live version, and
 > the extension above the live extension, before using it.
+>
+> **9.0.98** followed (ShuffleImport 9.0.14, ShuffleExport 9.0.15, and a new extension icon), so
+> the floor for a renumbered rollback is now ShuffleImport 9.0.15, ShuffleExport 9.0.16 and
+> extension 9.0.99.
 
 Running the gate against it fails exactly two assertions, both correct:
 
