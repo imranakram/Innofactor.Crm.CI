@@ -79,6 +79,13 @@ Describe 'Packaged extension' -Skip:(-not $HaveVsix) {
             $found = @(Get-ChildItem $Extracted -Recurse -Force -Filter 'System.IO.Compression*.dll' -ErrorAction SilentlyContinue)
             $found.FullName | Should -BeNullOrEmpty -Because 'clean Cmdlets/*/bin and obj before packing'
         }
+
+        It 'ships no NuGet System.IO or System.Runtime facades' {
+            # Leftovers from the 2019 net472 retarget, where the cryptography packages
+            # pulled them in. On net462 nothing depends on them and no cmdlet references them.
+            $found = @(Get-ChildItem $Extracted -Recurse -Force -Include 'System.IO.dll', 'System.Runtime.dll' -ErrorAction SilentlyContinue)
+            $found.FullName | Should -BeNullOrEmpty -Because 'clean Cmdlets/*/bin and obj before packing'
+        }
     }
 
     Context 'ADAL stays pinned at 3.19.8' {
