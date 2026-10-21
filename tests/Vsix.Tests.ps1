@@ -70,6 +70,22 @@ Describe 'Packaged extension' -Skip:(-not $HaveVsix) {
             $found = @(Get-ChildItem $Extracted -Recurse -Force -Filter 'Ionic.Zip*.dll' -ErrorAction SilentlyContinue)
             $found.FullName | Should -BeNullOrEmpty
         }
+
+        It 'ships no NuGet System.IO.Compression assemblies' {
+            # The cmdlets use the framework's System.IO.Compression and
+            # System.IO.Compression.FileSystem. The 4.3.0 NuGet copies (4.1.2.0 and
+            # ZipFile 4.0.2.0) only worked because .NET 4.7.1+ unifies them back to
+            # the framework assembly, and would ride along from a stale bin like DotNetZip did.
+            $found = @(Get-ChildItem $Extracted -Recurse -Force -Filter 'System.IO.Compression*.dll' -ErrorAction SilentlyContinue)
+            $found.FullName | Should -BeNullOrEmpty -Because 'clean Cmdlets/*/bin and obj before packing'
+        }
+
+        It 'ships no NuGet System.IO or System.Runtime facades' {
+            # Leftovers from the 2019 net472 retarget, where the cryptography packages
+            # pulled them in. On net462 nothing depends on them and no cmdlet references them.
+            $found = @(Get-ChildItem $Extracted -Recurse -Force -Include 'System.IO.dll', 'System.Runtime.dll' -ErrorAction SilentlyContinue)
+            $found.FullName | Should -BeNullOrEmpty -Because 'clean Cmdlets/*/bin and obj before packing'
+        }
     }
 
     Context 'ADAL stays pinned at 3.19.8' {

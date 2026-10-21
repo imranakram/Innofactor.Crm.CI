@@ -1,6 +1,6 @@
 {
-  "publishedVersion": "9.0.98",
-  "source": "InnofactorSE.cinteros-devutils-ci-build-tasks-9.0.98.vsix",
+  "publishedVersion": "9.0.99",
+  "source": "InnofactorSE.cinteros-devutils-ci-build-tasks-9.0.99.vsix",
   "tasks": {
     "ApplyVersionToAssemblies": {
       "id": "4d6fe5ed-c8e8-4782-ac11-97e27b7a72c5",
@@ -16,15 +16,15 @@
     },
     "ShuffleExport": {
       "id": "c0da7e50-d3a6-417e-9c8b-11da841352fc",
-      "version": "9.0.15"
+      "version": "9.0.16"
     },
     "ShuffleImport": {
       "id": "a4334ae5-0d38-4dc9-b30d-881fd2988c56",
-      "version": "9.0.14"
+      "version": "9.0.15"
     },
     "UpdateAssembly": {
       "id": "87589590-e070-48ad-b709-a7758db9db8b",
-      "version": "9.0.8"
+      "version": "9.0.9"
     },
     "UpdatePackage": {
       "id": "9a9257e6-1371-44a1-95c4-b2304b5396fb",
@@ -32,11 +32,11 @@
     },
     "UpdateWebResources": {
       "id": "ebd685fe-1b2d-4b7f-aaad-002ecec338b7",
-      "version": "9.0.10"
+      "version": "9.0.11"
     },
     "WhoAmI": {
       "id": "ba5aa140-c74d-4dd4-9f1c-18f4c48cf05d",
-      "version": "9.0.8"
+      "version": "9.0.9"
     }
   }
 }
